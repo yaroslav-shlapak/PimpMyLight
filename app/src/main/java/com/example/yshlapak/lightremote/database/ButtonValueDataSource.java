@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.house.smart.remote.ui.SmartHouseButtons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class ButtonValueDataSource extends ValueDataSource {
 
     public void addButtonValue(ButtonValue buttonValue) {
 
-        if (!isTableExisting(SmartHouseSQLiteHelper.BUTTONS_TABLE_NAME, SmartHouseButtons.getSize())) {
+        if (!isTableExisting(SmartHouseSQLiteHelper.BUTTONS_TABLE_NAME, 10)) {
             ContentValues values = new ContentValues();
             values.put(SmartHouseSQLiteHelper.COLUMN_ID, buttonValue.getId());
             values.put(SmartHouseSQLiteHelper.COLUMN_BUTTON_NAME, buttonValue.getButtonName());

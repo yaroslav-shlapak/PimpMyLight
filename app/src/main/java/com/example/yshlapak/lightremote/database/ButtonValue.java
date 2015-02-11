@@ -1,8 +1,5 @@
 package com.example.yshlapak.lightremote.database;
 
-import com.house.smart.remote.Constants;
-import com.house.smart.remote.ui.SmartHouseButtons;
-
 public class ButtonValue {
 
 	private int id;
@@ -78,7 +75,4 @@ public class ButtonValue {
 
     }
 
-    public ButtonValue(SmartHouseButtons smartHouseButtons) {
-        this(smartHouseButtons.getId(), smartHouseButtons.getName(), smartHouseButtons.getString(), Constants.DEFAULT_BUTTON_HEX_VALUE, Constants.DEFAULT_BUTTON_HEX_OPTION);
-    }
 }
