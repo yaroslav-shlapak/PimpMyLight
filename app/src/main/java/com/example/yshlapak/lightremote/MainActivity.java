@@ -1,18 +1,30 @@
 package com.example.yshlapak.lightremote;
 
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    View.OnClickListener onClickListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LightImageButton lightImageButton = new LightImageButton(false, getApplicationContext());
+        Log.d("onCreate", "LightImageButton created");
+        Button imageButton = (Button) findViewById(lightImageButton.getCurrentImage());
+        Log.d("onCreate", "Button created");
+        onClickListener = lightImageButton.getOnClickListener();
+        Log.d("onCreate", "Listener created");
+        imageButton.setOnClickListener(onClickListener);
+        Log.d("onCreate", "Listener set");
 
 
     }
@@ -22,9 +34,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-/*        LightImageButton lightImageButton = new LightImageButton(false, getApplicationContext());
-        Button imageButton = (Button) findViewById(lightImageButton.getCurrentImage());
-        imageButton.setOnClickListener(lightImageButton.getOnClickListener());*/
+
 
         return true;
     }
