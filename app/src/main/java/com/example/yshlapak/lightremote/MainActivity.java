@@ -8,22 +8,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends ActionBarActivity {
-
-    View.OnClickListener onClickListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LightImageButton lightImageButton = new LightImageButton(false, getApplicationContext());
         Log.d("onCreate", "LightImageButton created");
-        Button imageButton = (Button) findViewById(lightImageButton.getCurrentImage());
+        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton.setBackground(getResources().getDrawable(lightImageButton.getCurrentImage()));
         Log.d("onCreate", "Button created");
-        onClickListener = lightImageButton.getOnClickListener();
         Log.d("onCreate", "Listener created");
-        imageButton.setOnClickListener(onClickListener);
+        imageButton.setOnClickListener(lightImageButton);
         Log.d("onCreate", "Listener set");
 
 
