@@ -1,4 +1,4 @@
-package com.example.yshlapak.lightremote;
+package com.example.yshlapak.lightremote.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.example.yshlapak.lightremote.R;
 
 /**
  * Created by Void on 11-Feb-15.

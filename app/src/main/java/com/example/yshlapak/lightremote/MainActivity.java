@@ -1,15 +1,13 @@
 package com.example.yshlapak.lightremote;
 
-import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.example.yshlapak.lightremote.ui.LightImageButton;
 
 
 public class MainActivity extends ActionBarActivity {

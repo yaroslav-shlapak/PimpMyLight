@@ -40,7 +40,6 @@ public class ButtonValueDataSource extends ValueDataSource {
             cursor.close();
             Log.v("debug", "button was added");
         }
-
     }
 
     public ButtonValue getButtonValue(int id) {
