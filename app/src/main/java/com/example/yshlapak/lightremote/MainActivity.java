@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -16,15 +17,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LightImageButton lightImageButton = new LightImageButton(false, getApplicationContext());
-        Log.d("onCreate", "LightImageButton created");
-        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
-        imageButton.setBackground(getResources().getDrawable(lightImageButton.getCurrentImage()));
-        Log.d("onCreate", "Button created");
-        Log.d("onCreate", "Listener created");
-        imageButton.setOnClickListener(lightImageButton);
-        Log.d("onCreate", "Listener set");
 
+        LightImageButton lightImageButton = new LightImageButton(false, getApplicationContext());
+        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton.setImageResource(lightImageButton.getCurrentImage());
+        imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        imageButton.setOnClickListener(lightImageButton);
 
     }
 

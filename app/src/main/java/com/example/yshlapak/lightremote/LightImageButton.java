@@ -1,14 +1,17 @@
 package com.example.yshlapak.lightremote;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /**
  * Created by Void on 11-Feb-15.
  */
-public class LightImageButton implements View.OnClickListener{
+public class LightImageButton implements View.OnClickListener {
     private static final int bulbOnImg = R.drawable.bulb_on;
     private static final int bulbOffImg = R.drawable.bulb_off;
     private boolean state;
@@ -38,16 +41,18 @@ public class LightImageButton implements View.OnClickListener{
     }
 
 
-        @Override
-        public void onClick(View v) {
-            ImageButton btn = (ImageButton) v;
-            if (state) {
-                currentImage = bulbOnImg;
-            } else {
-                currentImage = bulbOffImg;
-            }
-            state = !state;
-            btn.setBackground(context.getResources().getDrawable(currentImage));
+    @Override
+    public void onClick(View v) {
+        ImageButton btn = (ImageButton) v;
+
+        if (state) {
+            currentImage = bulbOnImg;
+        } else {
+            currentImage = bulbOffImg;
         }
+        state = !state;
+        btn.setImageResource(getCurrentImage());
+        btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    }
 }
 
