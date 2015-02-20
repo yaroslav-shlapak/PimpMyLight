@@ -17,12 +17,10 @@ public class LightImageButton implements View.OnClickListener {
     private static final int bulbOnImg = R.drawable.bulb_on;
     private static final int bulbOffImg = R.drawable.bulb_off;
     private boolean state;
-    private Context context;
     private int currentImage;
 
-    public LightImageButton(boolean state, Context context) {
+    public LightImageButton(boolean state) {
         this.state = state;
-        this.context = context;
         currentImage = bulbOffImg;
     }
 

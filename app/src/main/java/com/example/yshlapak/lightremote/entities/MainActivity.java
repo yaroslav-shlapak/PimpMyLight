@@ -1,3 +1,4 @@
+/*
 package com.example.yshlapak.lightremote.entities;
 
 import android.app.Activity;
@@ -40,10 +41,12 @@ public class MainActivity extends Activity {
         @Override
         public void onClick(View v) {
 
+*/
 /*            if (!isWifiConnected()) {
                 showShortToast(Constants.WIFI_DISCONNECTED_MESSAGE);
                 return;
-            }*/
+            }*//*
+
 
 
             SmartHouseButtons btn = (SmartHouseButtons) v.getTag();
@@ -261,3 +264,4 @@ public class MainActivity extends Activity {
     }
 
 }
+*/

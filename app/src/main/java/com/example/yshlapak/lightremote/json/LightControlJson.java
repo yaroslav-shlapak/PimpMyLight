@@ -1,7 +1,5 @@
 package com.example.yshlapak.lightremote.json;
 
-import org.omg.CORBA.*;
-
 import java.lang.Object;
 
 /**

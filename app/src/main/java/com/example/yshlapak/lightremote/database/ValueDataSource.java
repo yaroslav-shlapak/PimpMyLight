@@ -12,10 +12,10 @@ import android.util.Log;
 public class ValueDataSource {
 
     protected SQLiteDatabase db;
-    protected final SmartHouseSQLiteHelper dbHelper;
+    protected final LightRemoteSQLiteHelper dbHelper;
 
     public ValueDataSource(Context context) {
-        this.dbHelper = new SmartHouseSQLiteHelper(context);
+        this.dbHelper = new LightRemoteSQLiteHelper(context);
     }
 
     public void open() throws SQLException {

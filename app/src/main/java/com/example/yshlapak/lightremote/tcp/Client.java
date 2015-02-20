@@ -4,7 +4,8 @@ package com.example.yshlapak.lightremote.tcp;
  * Created by y.shlapak on Jan 26, 2015.
  */
 
-import com.google.gson.Gson;
+import com.google.gson.*;
+import com.example.yshlapak.lightremote.json.LightControlJson;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
