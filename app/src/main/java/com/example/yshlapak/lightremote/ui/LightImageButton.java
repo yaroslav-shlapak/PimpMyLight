@@ -13,9 +13,9 @@ import com.example.yshlapak.lightremote.R;
 /**
  * Created by Void on 11-Feb-15.
  */
-public class LightImageButton implements View.OnClickListener {
-    private static final int bulbOnImg = R.drawable.bulb_on;
-    private static final int bulbOffImg = R.drawable.bulb_off;
+public class LightImageButton {
+    public static final int bulbOnImg = R.drawable.bulb_on;
+    public static final int bulbOffImg = R.drawable.bulb_off;
     private boolean state;
     private int currentImage;
 
@@ -40,19 +40,5 @@ public class LightImageButton implements View.OnClickListener {
         this.state = state;
     }
 
-
-    @Override
-    public void onClick(View v) {
-        ImageButton btn = (ImageButton) v;
-
-        if (state) {
-            currentImage = bulbOnImg;
-        } else {
-            currentImage = bulbOffImg;
-        }
-        state = !state;
-        btn.setImageResource(getCurrentImage());
-        btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-    }
 }
 

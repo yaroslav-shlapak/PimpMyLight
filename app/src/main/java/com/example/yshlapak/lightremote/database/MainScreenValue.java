@@ -7,6 +7,10 @@ public class MainScreenValue {
     private int bulbState;
     private int bulbLevel;
 
+    public MainScreenValue() {
+
+    }
+
     public MainScreenValue(int id, int bulbState, int bulbLevel) {
         this.id = id;
         this.bulbState = bulbState;
