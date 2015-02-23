@@ -2,7 +2,6 @@ package com.example.yshlapak.lightremote.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -28,7 +27,7 @@ public class ProtocolSettingsActivity extends Activity {
         protocolSettingsValueDataSource.open();
 
 		String textIp = protocolSettingsValueDataSource.getValue(1).getIp();
-		String textPort = protocolSettingsValueDataSource.getValue(1).getPort();
+		String textPort = Integer.toString(protocolSettingsValueDataSource.getValue(1).getPort());
 
 		etIp.setText(textIp);
 		etPort.setText(textPort);
@@ -55,7 +54,7 @@ public class ProtocolSettingsActivity extends Activity {
 	        	finish();
 	            return true;
 	        case R.id.action_accept:
-                ProtocolSettingsValue protocolSettingsValue = new ProtocolSettingsValue(1, etIp.getText().toString(), etPort.getText().toString());
+                ProtocolSettingsValue protocolSettingsValue = new ProtocolSettingsValue(1, etIp.getText().toString(), Integer.parseInt(etPort.getText().toString()));
                 protocolSettingsValueDataSource.updateValue(protocolSettingsValue);
                 protocolSettingsValueDataSource.close();
 	    		finish();

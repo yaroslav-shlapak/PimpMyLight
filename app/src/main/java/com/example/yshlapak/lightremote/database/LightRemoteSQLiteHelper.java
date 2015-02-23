@@ -26,7 +26,7 @@ public class LightRemoteSQLiteHelper extends SQLiteOpenHelper {
 
     private static final String PROTOCOL_SETTINGS_CREATE = "create table "
             + PROTOCOL_SETTINGS_TABLE_NAME + "(" + COLUMN_ID
-            + " integer primary key, " + COLUMN_IP + " text not null, " + COLUMN_PORT +  " text not null" + ");";
+            + " integer primary key, " + COLUMN_IP + " text not null, " + COLUMN_PORT +  " integer not null" + ");";
 
 
     public LightRemoteSQLiteHelper(Context context) {

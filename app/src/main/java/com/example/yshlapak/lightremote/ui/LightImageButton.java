@@ -21,7 +21,12 @@ public class LightImageButton {
 
     public LightImageButton(boolean state) {
         this.state = state;
-        currentImage = bulbOffImg;
+        if(state) {
+            setCurrentImage(bulbOnImg);
+        } else {
+            setCurrentImage(bulbOffImg);
+        }
+
     }
 
     public int getCurrentImage() {

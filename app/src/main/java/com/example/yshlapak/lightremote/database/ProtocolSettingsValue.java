@@ -6,15 +6,15 @@ package com.example.yshlapak.lightremote.database;
 public class ProtocolSettingsValue {
     private int id;
     private String ip;
-    private String port;
+    private int port;
 
-    public ProtocolSettingsValue(String ip, String port) {
+    public ProtocolSettingsValue(String ip, int port) {
         this.ip = ip;
         this.port = port;
     }
 
 
-    public ProtocolSettingsValue(int id, String ip, String port) {
+    public ProtocolSettingsValue(int id, String ip, int port) {
         this.id = id;
         this.ip = ip;
         this.port = port;
@@ -23,11 +23,11 @@ public class ProtocolSettingsValue {
     public ProtocolSettingsValue() {
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(int port) {
         this.port = port;
     }
 

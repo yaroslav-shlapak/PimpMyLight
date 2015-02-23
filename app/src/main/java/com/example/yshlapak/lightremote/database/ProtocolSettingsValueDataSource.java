@@ -40,7 +40,7 @@ public class ProtocolSettingsValueDataSource extends ValueDataSource{
                 LightRemoteSQLiteHelper.COLUMN_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
         if(cursor != null)
             cursor.moveToFirst();
-        return new ProtocolSettingsValue(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+        return new ProtocolSettingsValue(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)));
     }
     // Getting All Contacts
     public List<ProtocolSettingsValue> getAllValues() {
@@ -54,7 +54,7 @@ public class ProtocolSettingsValueDataSource extends ValueDataSource{
                 ProtocolSettingsValue protocolSettingsValue = new ProtocolSettingsValue();
                 protocolSettingsValue.setId(Integer.parseInt(cursor.getString(0)));
                 protocolSettingsValue.setIp(cursor.getString(1));
-                protocolSettingsValue.setPort(cursor.getString(2));
+                protocolSettingsValue.setPort(Integer.parseInt(cursor.getString(2)));
 // Adding contact to list
                 protocolSettingsValuesList.add(protocolSettingsValue);
             } while (cursor.moveToNext());
