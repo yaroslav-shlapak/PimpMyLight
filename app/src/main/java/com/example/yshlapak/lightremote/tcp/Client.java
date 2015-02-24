@@ -20,8 +20,8 @@ public class Client {
         this.portNumber = portNumber;
     }
 
-    final String hostName;
-    final int portNumber;
+    final public String hostName;
+    final public int portNumber;
 
     public LightControlJson getLightControlJson() {
         return lightControlJson;

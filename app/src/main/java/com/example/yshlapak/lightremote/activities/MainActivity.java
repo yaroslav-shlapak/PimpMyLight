@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.yshlapak.lightremote.R;
 import com.example.yshlapak.lightremote.database.MainScreenValue;
@@ -106,7 +108,8 @@ public class MainActivity extends Activity {
 
     private void initializeTcp() {
         client = new Client(protocolSettingsValueDataSource.getValue(1).getIp(), protocolSettingsValueDataSource.getValue(1).getPort());
-    }
+        Log.v("initializeTcp", "host = " + client.hostName + ", port = " + Integer.toString(client.portNumber));
+}
 
     private void initializeInstance() {
         state = mainScreenValueDataSource.getValue(1).getBulbState();
