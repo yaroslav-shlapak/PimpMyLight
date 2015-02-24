@@ -143,11 +143,6 @@ public class MainActivity extends Activity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-            if(fromUser) {
-                level = progress;
-                LightControlJson json = new LightControlJson(state != 0 ? true : false, level);
-                client.send(json);
-            }
         }
 
         @Override
@@ -157,7 +152,9 @@ public class MainActivity extends Activity {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-
+                level = seekBar.getProgress();
+                LightControlJson json = new LightControlJson(state != 0 ? true : false, level);
+                client.send(json);
         }
     }
 }
