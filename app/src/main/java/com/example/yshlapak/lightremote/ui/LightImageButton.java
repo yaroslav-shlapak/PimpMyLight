@@ -14,8 +14,8 @@ import com.example.yshlapak.lightremote.R;
  * Created by Void on 11-Feb-15.
  */
 public class LightImageButton {
-    public static final int bulbOnImg = R.drawable.bulb_on;
-    public static final int bulbOffImg = R.drawable.bulb_off;
+    public static final int bulbOnImg = R.drawable.bulb_on_res;
+    public static final int bulbOffImg = R.drawable.bulb_off_res;
     private boolean state;
     private int currentImage;
 

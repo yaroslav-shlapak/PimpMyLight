@@ -2,6 +2,7 @@ package com.example.yshlapak.lightremote.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -30,9 +32,12 @@ public class MainActivity extends Activity {
     MainScreenValueDataSource mainScreenValueDataSource;
     LightImageButton lightImageButton;
     LightButtonOnClickListener lightButtonOnClickListener;
+    LinearLayout mainLayout;
     Client client;
     int state;
     int level;
+    SeekBar seekBar;
+    ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +89,18 @@ public class MainActivity extends Activity {
     }
 
     private void initializeUI() {
+        mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
+
         lightImageButton = new LightImageButton(state == 1 ? true : false);
         lightButtonOnClickListener = new LightButtonOnClickListener();
-        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
         imageButton.setImageResource(lightImageButton.getCurrentImage());
         imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageButton.setOnClickListener(lightButtonOnClickListener);
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new LightButtonOnSeekBarChangeListener());
         seekBar.setProgress(level);
+        setMainLayoutBackgroundColor();
     }
 
     private void initializeDB() {
@@ -133,11 +141,26 @@ public class MainActivity extends Activity {
             lightImageButton.setState(!lightImageButton.isState());
             btn.setImageResource(lightImageButton.getCurrentImage());
             btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            setMainLayoutBackgroundColor();
             LightControlJson json = new LightControlJson(state != 0 ? true : false, level);
             client.send(json);
+
         }
     }
-
+    private void setMainLayoutBackgroundColor() {
+        int lo = 0xffffff00;
+        int hi = 0xffffffff;
+        int step = (hi - lo) / 100;
+        if(state == 0) {
+            imageButton.setBackgroundColor(Color.parseColor("#FF808080"));
+            seekBar.setBackgroundColor(Color.parseColor("#FF808080"));
+        } else {
+            String hexValue = "#" + Integer.toHexString(step * level + lo);
+            Log.v("setMainLayout", hexValue);
+            imageButton.setBackgroundColor(Color.parseColor(hexValue));
+            seekBar.setBackgroundColor(Color.parseColor(hexValue));
+        }
+    }
     private class LightButtonOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
 
         @Override
@@ -153,8 +176,12 @@ public class MainActivity extends Activity {
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
                 level = seekBar.getProgress();
+
                 LightControlJson json = new LightControlJson(state != 0 ? true : false, level);
                 client.send(json);
+                setMainLayoutBackgroundColor();
         }
+
+
     }
 }
