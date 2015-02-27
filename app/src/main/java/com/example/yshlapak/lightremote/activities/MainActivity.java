@@ -3,6 +3,7 @@ package com.example.yshlapak.lightremote.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -152,14 +153,17 @@ public class MainActivity extends Activity {
         int hi = 0xffffffff;
         int step = (hi - lo) / 100;
         if(state == 0) {
-            imageButton.setBackgroundColor(Color.parseColor("#FF808080"));
-            seekBar.setBackgroundColor(Color.parseColor("#FF808080"));
+            setColor("#FF018F99");
         } else {
             String hexValue = "#" + Integer.toHexString(step * level + lo);
-            Log.v("setMainLayout", hexValue);
-            imageButton.setBackgroundColor(Color.parseColor(hexValue));
-            seekBar.setBackgroundColor(Color.parseColor(hexValue));
+            setColor(hexValue);
         }
+    }
+
+    private void setColor(String color) {
+        imageButton.setBackgroundColor(Color.parseColor(color));
+        seekBar.setBackgroundColor(Color.parseColor(color));
+        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
     private class LightButtonOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
 
