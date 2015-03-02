@@ -149,13 +149,16 @@ public class MainActivity extends Activity {
         }
     }
     private void setMainLayoutBackgroundColor() {
-        int lo = 0xffffff00;
-        int hi = 0xffffffff;
-        int step = (hi - lo) / 100;
+
+
         if(state == 0) {
-            setColor("#FF018F99");
+            setColor("#FF000000");
         } else {
-            String hexValue = "#" + Integer.toHexString(step * level + lo);
+            int step = 100;
+            String baseString = Integer.toHexString(step + level);
+            Log.v("setMainLayoutBackgroundColor", Integer.toString(step + level));
+            Log.v("setMainLayoutBackgroundColor", baseString);
+            String hexValue = "#FF" + baseString + baseString + baseString;
             setColor(hexValue);
         }
     }
@@ -163,7 +166,6 @@ public class MainActivity extends Activity {
     private void setColor(String color) {
         imageButton.setBackgroundColor(Color.parseColor(color));
         seekBar.setBackgroundColor(Color.parseColor(color));
-        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
     private class LightButtonOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
 
