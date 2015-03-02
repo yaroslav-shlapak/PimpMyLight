@@ -8,6 +8,7 @@ import android.view.View;
 public class GestureHelper implements View.OnTouchListener {
 
     private final GestureDetector mGestureDetector;
+    private static View view;
 
     public GestureHelper(Context context) {
         mGestureDetector = new GestureDetector(context, new GestureListener(this));
@@ -19,27 +20,28 @@ public class GestureHelper implements View.OnTouchListener {
     public void onSwipeLeft() {
     };
 
-    public void onSwipeTop() {
+    public void onSwipeTop(float diff) {
     };
 
-    public void onSwipeBottom() {
+    public void onSwipeBottom(float diff) {
     };
 
     public void onDoubleTap() {
     };
 
-    public void onClick() {
+    public void onClick(View v) {
     };
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        view = v;
         return mGestureDetector.onTouchEvent(event);
     }
 
     private static final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+        private static final int SWIPE_THRESHOLD = 10;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 2;
         private GestureHelper mHelper;
 
         public GestureListener(GestureHelper helper) {
@@ -53,7 +55,7 @@ public class GestureHelper implements View.OnTouchListener {
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
-            mHelper.onClick();
+            mHelper.onClick(view);
             return true;
         }
 
@@ -80,9 +82,9 @@ public class GestureHelper implements View.OnTouchListener {
                 } else {
                     if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffY > 0) {
-                            mHelper.onSwipeBottom();
+                            mHelper.onSwipeBottom(diffY);
                         } else {
-                            mHelper.onSwipeTop();
+                            mHelper.onSwipeTop(diffY);
                         }
                     }
                 }
