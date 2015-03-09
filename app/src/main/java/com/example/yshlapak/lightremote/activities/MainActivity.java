@@ -2,19 +2,14 @@ package com.example.yshlapak.lightremote.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.yshlapak.lightremote.R;
 import com.example.yshlapak.lightremote.database.MainScreenValue;
@@ -22,7 +17,6 @@ import com.example.yshlapak.lightremote.database.MainScreenValueDataSource;
 import com.example.yshlapak.lightremote.database.ProtocolSettingsValue;
 import com.example.yshlapak.lightremote.database.ProtocolSettingsValueDataSource;
 import com.example.yshlapak.lightremote.entities.Constants;
-import com.example.yshlapak.lightremote.json.LightControlJson;
 import com.example.yshlapak.lightremote.tcp.Client;
 import com.example.yshlapak.lightremote.ui.LightImageButton;
 
@@ -32,19 +26,17 @@ public class MainActivity extends Activity {
     ProtocolSettingsValueDataSource protocolSettingsValueDataSource;
     MainScreenValueDataSource mainScreenValueDataSource;
     LightImageButton lightImageButton;
-    LightButtonOnClickListener lightButtonOnClickListener;
     LinearLayout mainLayout;
     Client client;
     int state;
     int level;
-    SeekBar seekBar;
     ImageButton imageButton;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     protected void onResume() {
@@ -52,8 +44,8 @@ public class MainActivity extends Activity {
 
         initializeDB();
         initializeInstance();
-        initializeUI();
         initializeTcp();
+        initializeUI();
     }
 
 
@@ -61,8 +53,6 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
         return true;
     }
 
@@ -83,25 +73,18 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        mainScreenValueDataSource.updateValue(new MainScreenValue(1, state, level));
+        mainScreenValueDataSource.updateValue(new MainScreenValue(1, lightImageButton.getState(), lightImageButton.getLevel()));
         protocolSettingsValueDataSource.close();
         mainScreenValueDataSource.close();
-
     }
 
     private void initializeUI() {
         mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
 
-        lightImageButton = new LightImageButton(state == 1 ? true : false);
-        lightButtonOnClickListener = new LightButtonOnClickListener();
         imageButton = (ImageButton) findViewById(R.id.imageButton);
-        imageButton.setImageResource(lightImageButton.getCurrentImage());
-        imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageButton.setOnClickListener(lightButtonOnClickListener);
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(new LightButtonOnSeekBarChangeListener());
-        seekBar.setProgress(level);
-        setMainLayoutBackgroundColor();
+        textView = (TextView) findViewById(R.id.textView);
+        textView.setText(Integer.toString(level) + "%");
+        lightImageButton = new LightImageButton(this, imageButton, state, level, client, textView);
     }
 
     private void initializeDB() {
@@ -118,76 +101,11 @@ public class MainActivity extends Activity {
     private void initializeTcp() {
         client = new Client(protocolSettingsValueDataSource.getValue(1).getIp(), protocolSettingsValueDataSource.getValue(1).getPort());
         Log.v("initializeTcp", "host = " + client.hostName + ", port = " + Integer.toString(client.portNumber));
-}
+    }
 
     private void initializeInstance() {
         state = mainScreenValueDataSource.getValue(1).getBulbState();
         level = mainScreenValueDataSource.getValue(1).getBulbLevel();
     }
-
-    private class LightButtonOnClickListener implements View.OnClickListener {
-        public void onClick(View v) {
-            ImageButton btn = (ImageButton) v;
-            //int tempState = state;
-            switch(state) {
-                case 0:
-                    lightImageButton.setCurrentImage(lightImageButton.bulbOnImg);
-                    state = 1;
-                    break;
-                case 1:
-                    lightImageButton.setCurrentImage(lightImageButton.bulbOffImg);
-                    state = 0;
-                    break;
-            }
-            lightImageButton.setState(!lightImageButton.isState());
-            btn.setImageResource(lightImageButton.getCurrentImage());
-            btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            setMainLayoutBackgroundColor();
-            LightControlJson json = new LightControlJson(state != 0 ? true : false, level);
-            client.send(json);
-
-        }
-    }
-    private void setMainLayoutBackgroundColor() {
-
-
-        if(state == 0) {
-            setColor("#FF000000");
-        } else {
-            int step = 100;
-            String baseString = Integer.toHexString(step + level);
-            Log.v("setMainLayoutBackgroundColor", Integer.toString(step + level));
-            Log.v("setMainLayoutBackgroundColor", baseString);
-            String hexValue = "#FF" + baseString + baseString + baseString;
-            setColor(hexValue);
-        }
-    }
-
-    private void setColor(String color) {
-        imageButton.setBackgroundColor(Color.parseColor(color));
-        seekBar.setBackgroundColor(Color.parseColor(color));
-    }
-    private class LightButtonOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-                level = seekBar.getProgress();
-
-                LightControlJson json = new LightControlJson(state != 0 ? true : false, level);
-                client.send(json);
-                setMainLayoutBackgroundColor();
-        }
-
-
-    }
 }
+
