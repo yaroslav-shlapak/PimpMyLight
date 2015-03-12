@@ -60,9 +60,14 @@ public class MainActivity extends Activity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.ip_settings:
-                Intent intent = new Intent(this, ProtocolSettingsActivity.class);
+                intent = new Intent(this, ProtocolSettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.wifi_settings:
+                intent = new Intent(this, WifiSettingsActivity.class);
                 startActivity(intent);
                 return true;
             default:
